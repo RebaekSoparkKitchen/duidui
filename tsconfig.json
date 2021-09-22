@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "watch": true,
+    "outDir": "dist",
+    "esModuleInterop": true
+  },
+  "lib": "es2015"
+}

@@ -1,0 +1,33 @@
+{
+  "NORMAL": {
+    "PERIOD": {
+      "CN": "。",
+      "EN": "."
+    },
+    "COMMA": {
+      "CN": "，",
+      "EN": ","
+    },
+    "COLON": {
+      "CN": "：",
+      "EN": ":"
+    },
+    "SEMICOLON": {
+      "CN": "；",
+      "EN": ";"
+    },
+    "EXCLAMATION": {
+      "CN": "！",
+      "EN": "!"
+    },
+    "QUESTION": {
+      "CN": "？",
+      "EN": "?"
+    },
+    "ELLIPSIS": { "CN": "……", "EN": "..." }
+  },
+  "QUOTE": {
+    "DOUBLE": { "CN": ["“", "”"], "EN": "\"" },
+    "SINGLE": { "CN": ["‘", "’"], "EN": "'" }
+  }
+}
