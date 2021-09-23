@@ -18,7 +18,7 @@ describe('paragraph', () => {
 
       assert.deepEqual(expected, res);
     });
-    it('should not split paragraphs', () => {
+    it('should not split paragraphs, only trim', () => {
       const sample = `   如此这样三十年 `;
       const expected = [`如此这样三十年`];
       const res = norm(sample);
