@@ -24,9 +24,9 @@ interface SearchResult {
   word: string;
 }
 /**
- *
+ * search ad keywords in the target text
  * @param text target text
- * @returns
+ * @returns a list which contains results
  */
 
 function search(text: string): SearchResult[] {

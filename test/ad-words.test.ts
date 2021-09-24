@@ -1,8 +1,8 @@
 import chai = require('chai');
 const assert = chai.assert;
-import { search } from '../src/ad-words-filter';
+import { search } from '../src/ad-words';
 
-describe('ad-words-filter', () => {
+describe('ad-words', () => {
   describe('search()', () => {
     it('should return a blank array', () => {
       const sample = '这个是业界不错的产品';
