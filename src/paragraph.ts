@@ -1,3 +1,5 @@
+import { fchown } from 'fs';
+
 /**
  * the main implementation of paragraph split, only work on a single lineBreak
  * @param text target string
@@ -34,12 +36,10 @@ function norm(text: string) {
  * @param margin single row margin or double row margin
  * @returns
  */
-function paragraphText(
-  text: string,
-  output: 'html' | 'plain',
-  margin: 'single' | 'double'
-) {
+function paragraphText(text: string, margin: 'single' | 'double') {
   let lineBreak: string;
+  // intelligently judge if it is html or plain text
+  const output = isHtml(text) ? 'html' : 'plain';
   switch (output) {
     case 'plain':
       lineBreak = margin === 'single' ? '\n' : '\n\n';
@@ -52,4 +52,14 @@ function paragraphText(
   }
 }
 
-export { norm, paragraphText };
+/**
+ * to determine if a given text is html or plain text
+ * @param text the target text
+ * @returns html text -> true, plain text -> false
+ */
+function isHtml(text: string): boolean {
+  const res = text.search(/<[^>]+>/);
+  return res !== -1;
+}
+
+export { norm, paragraphText, isHtml };

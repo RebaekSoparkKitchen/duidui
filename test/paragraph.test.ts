@@ -1,6 +1,6 @@
 import chai = require('chai');
 const assert = chai.assert;
-import { norm, paragraphText } from '../src/paragraph';
+import { norm, paragraphText, isHtml } from '../src/paragraph';
 
 describe('paragraph', () => {
   describe('norm()', () => {
@@ -26,24 +26,46 @@ describe('paragraph', () => {
     });
   });
   describe('paragraphText()', () => {
-    const sample = `白日依山尽
-		  
-		 黄河入海流
-		 
-		 `;
-    it('should return plain text', () => {
+    it('should return plain text and reset line break to single', () => {
+      const sample = `白日依山尽
+			  
+			 黄河入海流
+			 
+			 `;
       const expected = '白日依山尽\n黄河入海流';
-      const res = paragraphText(sample, 'plain', 'single');
+      const res = paragraphText(sample, 'single');
       assert.strictEqual(res, expected);
     });
-    it('should return html text', () => {
+    it('should return html text and reset to single lineBreak numbers', () => {
+      const sample = '白日依山尽<br><br>黄河入海流';
       const expected = '白日依山尽<br>黄河入海流';
-      const res = paragraphText(sample, 'html', 'single');
+      const res = paragraphText(sample, 'single');
       assert.strictEqual(res, expected);
     });
-    it('should return double lineBreaks', () => {
+    it('should return html text and reset to double lineBreaks', () => {
+      const sample = '白日依山尽<br />黄河入海流';
       const expected = '白日依山尽<br><br>黄河入海流';
-      const res = paragraphText(sample, 'html', 'double');
+      const res = paragraphText(sample, 'double');
+      assert.strictEqual(res, expected);
+    });
+  });
+  describe('isHtml()', () => {
+    it('should return false because it is plain text', () => {
+      const sample = '我爱北京天安门，天安门上太阳升';
+      const res = isHtml(sample);
+      const expected = false;
+      assert.strictEqual(res, expected);
+    });
+    it('should return true because it contains <br>', () => {
+      const sample = '我爱北京天安门<br>天安门上太阳升';
+      const res = isHtml(sample);
+      const expected = true;
+      assert.strictEqual(res, expected);
+    });
+    it('should return true because it contains <br />', () => {
+      const sample = '我爱北京天安门<br />天安门上太阳升';
+      const res = isHtml(sample);
+      const expected = true;
       assert.strictEqual(res, expected);
     });
   });
