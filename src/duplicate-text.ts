@@ -4,6 +4,11 @@ interface HashTable<T> {
 
 type IndexRange = [number, number];
 
+interface DuplicateWords {
+  value: string;
+  indexRanges: IndexRange[];
+}
+
 /**
  * helper function: extract add key logic here
  * @param hash a hash table represents a fixed length text table
@@ -178,10 +183,7 @@ function filterDominatedWords(hash1: object, hash2: object) {
  * @param minLength: the minimum length of the searched pattern
  * @returns a search result which represents by a hash table
  */
-function searchDuplicates(
-  text: string,
-  minLength: number
-): HashTable<IndexRange[]>[] {
+function searchDuplicates(text: string, minLength: number) {
   let hashTable = searchDuplicatesFixed(text, minLength);
   let nextHash = longerHash(text, hashTable);
   function f(hash: HashTable<IndexRange[]>) {
@@ -197,7 +199,14 @@ function searchDuplicates(
   const removeBlankCollections = collections.filter(
     (hash: HashTable<IndexRange[]>) => Object.keys(hash).length > 0
   );
-  return removeBlankCollections;
+  // turn to a user friendly data structure
+  const result: DuplicateWords[] = [];
+  removeBlankCollections.forEach((hash) => {
+    Object.keys(hash).forEach((text) => {
+      result.push({ value: text, indexRanges: hash[text] });
+    });
+  });
+  return result;
 }
 export {
   searchDuplicatesFixed,

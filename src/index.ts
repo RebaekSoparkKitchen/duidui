@@ -29,12 +29,10 @@ function proofRead(text: string, options: Options = defaults) {
   if (settings.punctuation) {
     str = quoteSymbol(str);
     str = normalSymbol(str);
-    console.log('here', str);
   }
   if (settings.space) {
     str = removeSpace(str, 1);
     str = addSpace(str);
-    console.log('spacer', str);
   }
   if (settings.paragraph) {
     if (settings.paragraphMargin === 'double') {
