@@ -2,7 +2,7 @@
   "name": "duidui",
   "version": "1.0.1",
   "description": "make hand-writen text correct for marketing branding guideline",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "FlyingRedPig",
   "license": "MIT",
   "scripts": {
