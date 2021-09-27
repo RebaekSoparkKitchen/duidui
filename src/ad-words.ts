@@ -19,8 +19,7 @@ function init() {
 }
 
 interface SearchResult {
-  start: number;
-  end: number;
+  indexRange: [number, number];
   word: string;
 }
 /**
@@ -29,15 +28,15 @@ interface SearchResult {
  * @returns a list which contains results
  */
 
-function search(text: string): SearchResult[] {
+function searchAdWords(text: string): SearchResult[] {
   let ac = new AhoCorasick([]);
   ac = Object.assign(ac, adWordTrie);
   const res = ac.search(text);
   const ans = [];
   return res.map((x) => {
     const word = x[1][0];
-    return { start: x[0] - word.length + 1, end: x[0], word } as SearchResult;
+    return { indexRange: [x[0] - word.length + 1, x[0]], word } as SearchResult;
   });
 }
 
-export { search, init };
+export { searchAdWords, init };

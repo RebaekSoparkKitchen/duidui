@@ -34,6 +34,9 @@ function removeRebundantSpace(text: string) {
 function addSpace(text: string) {
   let str = text;
   str = pangu.spacing(str);
+
+  str = dReplace(str, `“ `, `“`);
+  str = dReplace(str, `” `, `”`);
   //   replacement for html tag
   str = dReplace(str, / </g, '<');
   str = dReplace(str, /< /g, '<');

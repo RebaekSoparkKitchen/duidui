@@ -39,6 +39,12 @@ describe('space.ts', () => {
       const res = addSpace(sample);
       assert.strictEqual(res, expected);
     });
+    it('should avoid add space around chinese punctions', () => {
+      const sample = '白日依山尽，“黄河”入海流';
+      const res = addSpace(sample);
+      const expected = '白日依山尽，“黄河”入海流';
+      assert.strictEqual(res, expected);
+    });
   });
   describe('removeRebundantSpace()', () => {
     it('should remove rebundant space', () => {

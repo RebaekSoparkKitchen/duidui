@@ -55,6 +55,13 @@ describe('punctuation', () => {
         const res = quoteSymbol(sample);
       }, /The frequency of quotation characters is odd number/);
     });
+    it('should not add any space', () => {
+      const sample = '白日依山尽，“黄河"入海流';
+      const expected = '白日依山尽，“黄河”入海流';
+      const res1 = quoteSymbol(sample);
+      const res = normalSymbol(res1);
+      assert.strictEqual(expected, res);
+    });
   });
   describe('normalSymbol()', () => {
     it('should change english comma to chinese', () => {
