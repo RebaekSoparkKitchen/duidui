@@ -1,6 +1,6 @@
 {
   "name": "duidui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/index.js",
   "author": "FlyingRedPig",
