@@ -15,7 +15,8 @@ describe('duplicate-text', () => {
       const res1 = searchDuplicates(sample1, 5);
       const expected1: any = [
         {
-          '太阳出来我爬山坡，爬到了山顶我想唱歌。': [
+          value: '太阳出来我爬山坡，爬到了山顶我想唱歌。',
+          indexRanges: [
             [0, 18],
             [20, 38],
           ],
