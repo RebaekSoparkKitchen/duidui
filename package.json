@@ -1,14 +1,17 @@
 {
   "name": "duidui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "index.js",
   "author": "FlyingRedPig",
   "license": "MIT",
   "scripts": {
     "test": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha --require ts-node/register 'test/**/*.ts'",
-    "cov": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" nyc --reporter=text mocha --require ts-node/register 'test/**/*.ts'"
+    "cov": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" nyc --reporter=text mocha --require ts-node/register 'test/**/*.ts'",
+    "build": "tsc"
   },
+  "types": "dist/index.d.ts",
+  "prepublish": "tsc",
   "dependencies": {
     "ahocorasick": "^1.0.2",
     "is-english": "^1.3.0",
