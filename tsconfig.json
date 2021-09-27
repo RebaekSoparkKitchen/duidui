@@ -4,7 +4,7 @@
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": true,
-    "watch": true,
+    "watch": false,
     "outDir": "dist",
     "esModuleInterop": true,
     "declaration": true
