@@ -1,6 +1,6 @@
 {
   "name": "duidui",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/src/index.js",
   "module": "dist/src/index.esm.js",
@@ -35,5 +35,9 @@
     "ts-node": "^10.2.1",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
-  }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ]
 }
