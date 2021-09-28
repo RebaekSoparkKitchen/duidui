@@ -54,4 +54,4 @@ function proofRead(text: string, options: Options = defaults) {
   return result;
 }
 
-export default proofRead;
+export { proofRead };
