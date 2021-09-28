@@ -3,13 +3,14 @@
   "version": "1.0.6",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/src/index.js",
+  "module": "dist/src/index.esm.js",
   "author": "FlyingRedPig",
   "license": "MIT",
   "scripts": {
     "test": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha --require ts-node/register 'test/**/*.ts'",
     "cov": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" nyc --reporter=text mocha --require ts-node/register 'test/**/*.ts'",
     "clean": "rm -rf ./dist",
-    "build": "yarn clean && tsc && yarn copy-files",
+    "build": "yarn clean && rollup -c && yarn copy-files",
     "copy-files": "cp -R ./src/data ./dist/src/data"
   },
   "types": "dist/index.d.ts",
@@ -28,7 +29,13 @@
     "chai": "^4.3.4",
     "mocha": "^9.1.1",
     "nyc": "^15.1.0",
+    "rollup": "^2.57.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "ts-node": "^10.2.1",
+    "tslib": "^2.3.1",
     "typescript": "^4.4.3"
-  }
+  },
+  "files": [
+    "package.json"
+  ]
 }

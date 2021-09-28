@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": true,
@@ -9,5 +9,7 @@
     "esModuleInterop": true,
     "declaration": true
   },
-  "lib": "es2015"
+  "lib": "es2015",
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }

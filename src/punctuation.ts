@@ -1,5 +1,5 @@
 import { findPatterns } from './utils';
-import isEnglish = require('is-english');
+const isEnglish = require('is-english');
 import { previousChar, dReplaceAt } from './utils';
 const punctuationSymbol: PunctuationSymbol = require('./data/punctationSymbol.json');
 
