@@ -1,6 +1,6 @@
 import chai = require('chai');
 const assert = chai.assert;
-import proofRead from '../src/index';
+import { proofRead } from '../src/index';
 
 describe('index.ts', () => {
   describe('proofRead()', () => {
