@@ -23,7 +23,7 @@ const defaults = {
   dupThreshold: 5,
   adKeyWords: true,
 };
-function proofRead(text: string, options: Options = defaults) {
+function proofread(text: string, options: Options = defaults) {
   let str = text;
   const settings = { ...defaults, ...options };
   if (settings.punctuation) {
@@ -54,4 +54,4 @@ function proofRead(text: string, options: Options = defaults) {
   return result;
 }
 
-export { proofRead };
+export { proofread };
