@@ -29,7 +29,7 @@ const result = duidui.proofread(text);
 console.log(result.data);
 // 人，诗意地栖居在大地上。
 
-console.log(result.logger);
+console.log(result.log);
 /* [
   { index: 1, value: ',', replaceValue: '，' },
   { index: 8, value: ' ', replaceValue: '' },
