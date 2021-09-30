@@ -6,10 +6,7 @@ describe('index.ts', () => {
   describe('proofread()', () => {
     it('should return a corrected text', () => {
       const sample = `   
-			白日依山尽，
-
-
-			"黄河"入海流.
+			白日依山尽，"黄河"入海流.
 			`;
       const res = proofread(sample);
       const expected = '白日依山尽，“黄河”入海流。';

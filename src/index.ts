@@ -31,7 +31,7 @@ function proofread(text: string, options: Options = defaults) {
     str = normalSymbol(str);
   }
   if (settings.space) {
-    str = removeSpace(str, 1);
+    str = removeRebundantSpace(str);
     str = addSpace(str);
   }
   if (settings.paragraph) {
