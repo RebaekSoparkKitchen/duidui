@@ -49,7 +49,11 @@ function proofread(text: string, options: Options = defaults) {
   if (settings.adKeyWords) {
     adKeyWords = searchAdWords(str);
   }
-  const result = { data: str, checklist: { duplicate, adKeyWords }, logger };
+  const result = {
+    data: str,
+    checklist: { duplicate, adKeyWords },
+    log: logger,
+  };
 
   return result;
 }
