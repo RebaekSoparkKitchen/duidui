@@ -1,6 +1,6 @@
 import chai = require('chai');
 const assert = chai.assert;
-import { proofread } from '../src/index';
+import duidui from '../src/index';
 
 describe('index.ts', () => {
   describe('proofread()', () => {
@@ -8,7 +8,7 @@ describe('index.ts', () => {
       const sample = `   
 			白日依山尽，"黄河"入海流.
 			`;
-      const res = proofread(sample);
+      const res = duidui.proofread(sample);
       const expected = '白日依山尽，“黄河”入海流。';
       assert.strictEqual(res.data, expected);
     });
