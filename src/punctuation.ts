@@ -1,4 +1,4 @@
-import { findPatterns } from './utils';
+import { dInsertAt, findPatterns } from './utils';
 const isEnglish = require('is-english');
 import { previousChar, dReplaceAt } from './utils';
 const punctuationSymbol: PunctuationSymbol = require('./data/punctationSymbol.json');
@@ -68,13 +68,40 @@ function quoteSymbol(text: string) {
 function _normalSymbol(text: string, symbol: NormalSymbol) {
   let str = text;
   const NORMAL_SYMBOL = [symbol['CN'], symbol['EN']];
-  const positions = findPatterns(str, NORMAL_SYMBOL);
-  positions.forEach((x) => {
-    let pos = x[0];
-    if (isEnglish(previousChar(str, pos)))
+  let positions = findPatterns(str, NORMAL_SYMBOL);
+  for (let i = 0; i < positions.length; i++) {
+    positions = findPatterns(str, NORMAL_SYMBOL);
+    // if it is the first or last sentence, then default the prevous or next sentence is english
+    const prevSentence =
+      i > 0
+        ? str.substring(positions[i - 1][1], positions[i][0])
+        : str.substring(0, positions[i][0]);
+    const nextSentence =
+      i < positions.length - 1
+        ? str.substring(positions[i][1], positions[i + 1][0])
+        : str.substring(positions[i][1], str.length - 1);
+
+    const pos = positions[i][0];
+    if (isEnglish(prevSentence) && isEnglish(nextSentence)) {
       str = dReplaceAt(str, pos, symbol['EN']);
-    else str = dReplaceAt(str, pos, symbol['CN']);
-  });
+      // add space between english character and punctuation
+      if (
+        positions[i][1] < str.length - 1 &&
+        str[positions[i][1] + 1] !== ' '
+      ) {
+        dInsertAt(str, positions[i][1] + 1, ' ');
+      }
+    } else {
+      str = dReplaceAt(str, pos, symbol['CN']);
+      // delete space between chinese character and punctuation
+      if (
+        positions[i][1] < str.length - 1 &&
+        str[positions[i][1] + 1] === ' '
+      ) {
+        str = dReplaceAt(str, positions[i][1] + 1, '');
+      }
+    }
+  }
   return str;
 }
 

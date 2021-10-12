@@ -65,11 +65,9 @@ function dReplaceAt(text: string, index: number, replaceValue: string) {
   if (text.substr(index, replaceValue.length) !== replaceValue) {
     logger.push({ index, value: text[index], replaceValue });
   }
-  return (
-    text.substr(0, index) +
-    replaceValue +
-    text.substr(index + replaceValue.length)
-  );
+  // in case replaceValue is blank
+  const length = replaceValue.length ? replaceValue.length : 1;
+  return text.substr(0, index) + replaceValue + text.substr(index + length);
 }
 
 function dInsertAt(text: string, index: number, insertValue: string) {

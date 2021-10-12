@@ -77,10 +77,10 @@ describe('punctuation', () => {
       assert.strictEqual(res, expected);
     });
     it('should intelligently do decision about en/cn character', () => {
-      const sample0 = `I love you， 中国。`;
-      const sample1 = `I love you, 中国.`;
+      const sample0 = `I love you，中国。`;
+      const sample1 = `I love you,中国.`;
       const sample2 = `I love you， 中国.`;
-      const expected = `I love you, 中国。`;
+      const expected = `I love you，中国。`;
       const res0 = normalSymbol(sample0);
       const res1 = normalSymbol(sample1);
       const res2 = normalSymbol(sample2);
