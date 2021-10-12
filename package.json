@@ -1,6 +1,6 @@
 {
   "name": "duidui",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/src/index.js",
   "module": "dist/src/index.esm.js",
@@ -10,7 +10,7 @@
     "test": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha --require ts-node/register 'test/**/*.ts'",
     "cov": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" nyc --reporter=text mocha --require ts-node/register 'test/**/*.ts'",
     "clean": "rm -rf ./dist",
-    "build": "yarn clean && rollup -c",
+    "build": "yarn clean && rollup -c && yarn copy-files",
     "copy-files": "cp -R ./src/data ./dist/src/data"
   },
   "types": "dist/index.d.ts",
