@@ -62,11 +62,11 @@ function dReplace(
  * @returns
  */
 function dReplaceAt(text: string, index: number, replaceValue: string) {
-  if (text.substr(index, replaceValue.length) !== replaceValue) {
-    logger.push({ index, value: text[index], replaceValue });
-  }
   // in case replaceValue is blank
   const length = replaceValue.length ? replaceValue.length : 1;
+  if (text.substr(index, length) !== replaceValue) {
+    logger.push({ index, value: text[index], replaceValue });
+  }
   return text.substr(0, index) + replaceValue + text.substr(index + length);
 }
 
