@@ -91,5 +91,22 @@ function previousChar(text: string, index: number): string {
 
   return previous;
 }
+
+/**
+ * to judge that if a sting can be correponding to a number
+ * @param text the input text I want to know if it can be number, eg: "10"
+ */
+function isNumber(text: string): boolean {
+  const n = Number(text);
+  return !isNaN(n);
+}
 let logger: object[] = [];
-export { findPatterns, previousChar, dReplace, dReplaceAt, dInsertAt, logger };
+export {
+  findPatterns,
+  previousChar,
+  dReplace,
+  dReplaceAt,
+  dInsertAt,
+  isNumber,
+  logger,
+};

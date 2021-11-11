@@ -4,6 +4,7 @@ import {
   previousChar,
   dReplaceAt,
   dInsertAt,
+  isNumber,
 } from '../src/utils';
 const assert = chai.assert;
 describe('utils', () => {
@@ -77,6 +78,18 @@ describe('utils', () => {
       const expected = `新港有一个好吃的钻石米`;
       const res = dInsertAt(sample, 5, '好吃的');
       assert.strictEqual(res, expected);
+    });
+  });
+  describe('isNumber()', () => {
+    it('should return false when number and char mixed', () => {
+      const sample = `redpig12`;
+      assert.notOk(isNumber(sample));
+    });
+    it('shoule ok when it is a number', () => {
+      assert.ok(isNumber('0'));
+    });
+    it('should return false when it is not a number', () => {
+      assert.notOk(isNumber('x'));
     });
   });
 });
