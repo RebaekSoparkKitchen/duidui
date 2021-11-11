@@ -62,6 +62,12 @@ describe('punctuation', () => {
       const res = normalSymbol(res1);
       assert.strictEqual(expected, res);
     });
+    it('should change chinese colon to english if it is surrounded by numbers', () => {
+      const sample = '11：04';
+      const expected = '11:04';
+      const res = normalSymbol(sample);
+      assert.strictEqual(expected, res);
+    });
   });
   describe('normalSymbol()', () => {
     it('should change english comma to chinese', () => {

@@ -1,6 +1,6 @@
 import { dInsertAt, findPatterns } from './utils';
 const isEnglish = require('is-english');
-import { previousChar, dReplaceAt } from './utils';
+import { previousChar, dReplaceAt, isNumber } from './utils';
 const punctuationSymbol: PunctuationSymbol = require('./data/punctationSymbol.json');
 
 interface Character {
@@ -82,6 +82,7 @@ function _normalSymbol(text: string, symbol: NormalSymbol) {
         : str.substring(positions[i][1], str.length - 1);
 
     const pos = positions[i][0];
+
     if (isEnglish(prevSentence) && isEnglish(nextSentence)) {
       str = dReplaceAt(str, pos, symbol['EN']);
       // add space between english character and punctuation
@@ -100,6 +101,15 @@ function _normalSymbol(text: string, symbol: NormalSymbol) {
       ) {
         str = dReplaceAt(str, positions[i][1] + 1, '');
       }
+    }
+    // if a colon symbol's prev and after are both number, then transfer to english
+    // the excution procedure is very important ~~
+    if (
+      symbol['CN'] == '：' &&
+      isNumber(str[pos - 1]) &&
+      isNumber(str[pos + 1])
+    ) {
+      str = dReplaceAt(str, pos, symbol['EN']);
     }
   }
   return str;
