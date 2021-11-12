@@ -63,6 +63,16 @@ describe('utils', () => {
       ];
       assert.deepEqual(res, expected);
     });
+    it('should find right index of <b> and </b>', () => {
+      const sample = '我喜欢<b>哈哈哈</b>';
+      const pattern = ['<b>', '</b>'];
+      const res = findPatterns(sample, pattern);
+      const expected = [
+        [3, 5],
+        [9, 12],
+      ];
+      assert.deepEqual(res, expected);
+    });
   });
   describe('dReplaceAt()', () => {
     it('should replace single string in certain index', () => {

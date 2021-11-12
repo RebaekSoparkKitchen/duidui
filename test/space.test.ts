@@ -45,6 +45,18 @@ describe('space.ts', () => {
       const expected = '白日依山尽，“黄河”入海流';
       assert.strictEqual(res, expected);
     });
+    it('should add space when for english in <b> and chinese outside', () => {
+      const sample = '那一年我二十一岁，在我一生的<b>gold</b>时代。';
+      const res = addSpace(sample);
+      const expected = '那一年我二十一岁，在我一生的<b> gold</b> 时代。';
+      assert.strictEqual(res, expected);
+    });
+    it('should not add space for chinese punction and english', () => {
+      const sample = '太阳当空照，flower对我笑';
+      const res = addSpace(sample);
+      const expected = '太阳当空照，flower 对我笑';
+      assert.strictEqual(res, expected);
+    });
   });
   describe('removeRebundantSpace()', () => {
     it('should remove rebundant space', () => {

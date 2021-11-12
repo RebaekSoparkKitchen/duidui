@@ -56,11 +56,15 @@ function htmlSpace(text: string) {
     '<strong>',
     '</strong>',
   ]);
+  // count works for insert, see line 66, if I insert a space, the pos I calculated
+  // before will outdated, I use count to record how many spaces I have added
+  let count = 0;
   patterns.forEach((pos) => {
     let textAroundTag = `${text[pos[0] - 1]}${text[pos[1] + 1]}`;
     if (pangu.spacing(textAroundTag).length !== textAroundTag.length) {
       // always insert space on the further point, actually either direction works
-      str = dInsertAt(str, pos[1] + 1, ' ');
+      count += 1;
+      str = dInsertAt(str, pos[1] + count, ' ');
     }
   });
   return str;
