@@ -26,5 +26,11 @@ describe('index.ts', () => {
       const expected = '那一年我二十一岁，在我一生的<b> gold</b> 时代。';
       assert.equal(res.data, expected);
     });
+    it('shoule avoid add any space', () => {
+      const sample = `届时，<b>我们将全网直播本届峰会上午的「主旨演讲」</b>`;
+      const res = duidui.proofread(sample);
+      const expected = `届时，<b>我们将全网直播本届峰会上午的「主旨演讲」</b>`;
+      assert.equal(res.data, expected);
+    });
   });
 });
