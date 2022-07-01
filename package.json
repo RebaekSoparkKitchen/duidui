@@ -1,6 +1,6 @@
 {
   "name": "duidui",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/src/index.js",
   "module": "dist/src/index.esm.js",
