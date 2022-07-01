@@ -1,6 +1,6 @@
 import chai = require('chai');
 const assert = chai.assert;
-import duidui from '../src/index';
+import * as duidui from '../src/index';
 
 describe('index.ts', () => {
   describe('proofread()', () => {
