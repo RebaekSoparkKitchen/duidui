@@ -36,7 +36,9 @@ function addSpace(text: string) {
   str = pangu.spacing(str);
 
   str = dReplace(str, `“ `, `“`);
+  str = dReplace(str, ` “`, `“`);
   str = dReplace(str, `” `, `”`);
+  str = dReplace(str, ` ”`, `”`);
   //   replacement for html tag
   str = dReplace(str, / </g, '<');
   str = dReplace(str, /< /g, '<');

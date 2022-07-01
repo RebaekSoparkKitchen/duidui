@@ -43,5 +43,11 @@ describe('index.ts', () => {
       const res = duidui.proofread(sample, { paragraph: false });
       assert.strictEqual(res.data, expected);
     });
+    it('should change punctuation from real case 3', () => {
+      const sample = `我爱北京"天安门"呀`;
+      const expected = `我爱北京“天安门”呀`;
+      const res = duidui.proofread(sample);
+      assert.strictEqual(res.data, expected);
+    });
   });
 });
