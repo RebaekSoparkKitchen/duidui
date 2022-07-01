@@ -1,9 +1,10 @@
 {
   "name": "duidui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "make hand-writen text correct for marketing branding guideline",
   "main": "dist/src/index.js",
   "module": "dist/src/index.esm.js",
+  "types": "dist/src/index.d.ts",
   "author": "FlyingRedPig",
   "license": "MIT",
   "scripts": {
@@ -13,7 +14,6 @@
     "build": "yarn clean && rollup -c && yarn copy-files",
     "copy-files": "cp -R ./src/data ./dist/src/data"
   },
-  "types": "dist/index.d.ts",
   "prepublish": "yarn build",
   "dependencies": {
     "ahocorasick": "^1.0.2",
