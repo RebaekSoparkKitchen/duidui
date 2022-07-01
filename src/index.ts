@@ -58,4 +58,4 @@ function proofread(text: string, options: Options = defaults) {
   return result;
 }
 
-export { proofread };
+export default { proofread };
