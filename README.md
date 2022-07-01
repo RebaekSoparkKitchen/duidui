@@ -14,14 +14,21 @@ duidui 是一个中文校对库，致力于将任意中文文本修正为一个�
 
 ## 安装方式
 
-```
+```shell
+# yarn
 yarn add duidui
+
+# npm
+npm install duidui
 ```
 
 ## 快速入门
 
 ```javascript
 const duidui = require('duidui');
+
+// 如果您在使用 typescript 或者 es6 的 js，使用 import 以获得类型提示
+// import duidui from 'duidui';
 
 const text = '人,诗意地栖居在 大地上。 ';
 const result = duidui.proofread(text);
