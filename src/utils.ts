@@ -35,6 +35,25 @@ function findPatterns(
       }
   }
 }
+
+function findPatternsByRegex(text: string, reg: RegExp | RegExp[]): number[][] {
+  function _findPatternsByRegex(text: string, reg: RegExp) {
+    let result: number[][] = [];
+    let matches = [...text.matchAll(reg)];
+    matches.forEach((match) => {
+      result.push([match.index, match.index + match[0].length - 1]);
+    });
+    return result;
+  }
+  if (!Array.isArray(reg)) {
+    return _findPatternsByRegex(text, reg);
+  }
+  let collector = [];
+  reg.forEach((r) => {
+    collector = collector.concat(_findPatternsByRegex(text, r));
+  });
+  return collector;
+}
 /**
  * a replace method invoked by logger
  * @param text target string
@@ -100,13 +119,50 @@ function isNumber(text: string): boolean {
   const n = Number(text);
   return !isNaN(n);
 }
+
+/**
+ * to determine if a given text is html or plain text
+ * @param text the target text
+ * @returns html text -> true, plain text -> false
+ */
+function isHtml(text: string): boolean {
+  const res = text.search(/<[^>]+>/);
+  return res !== -1;
+}
+
+function findInterval(length: number, textRanges: number[][]) {
+  const collector = [];
+  if (textRanges.length === 0) return [[]];
+  if (textRanges[0][0] > 0) {
+    collector.push([0, textRanges[0][0] - 1]);
+  }
+  for (let i = 0; i < textRanges.length; i++) {
+    if (textRanges[i][1] === length - 1) break;
+    if (i === textRanges.length - 1) {
+      const start = textRanges[i][1] + 1;
+      const end = length - 1;
+      if (start > end) continue;
+      collector.push([start, end]);
+    } else {
+      const start = textRanges[i][1] + 1;
+      const end = textRanges[i + 1][0] - 1;
+      if (start > end) continue;
+      collector.push([start, end]);
+    }
+  }
+  return collector;
+}
+
 let logger: object[] = [];
 export {
   findPatterns,
+  findPatternsByRegex,
   previousChar,
   dReplace,
   dReplaceAt,
   dInsertAt,
   isNumber,
+  isHtml,
   logger,
+  findInterval,
 };

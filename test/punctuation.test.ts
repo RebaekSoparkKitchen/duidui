@@ -94,5 +94,11 @@ describe('punctuation', () => {
       assert.strictEqual(res1, expected);
       assert.strictEqual(res2, expected);
     });
+    it('should work with two chars', () => {
+      const sample = `,中`;
+      const res = normalSymbol(sample);
+      const expected = '，中';
+      assert.strictEqual(res, expected);
+    });
   });
 });

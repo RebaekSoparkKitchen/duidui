@@ -5,6 +5,8 @@ import {
   dReplaceAt,
   dInsertAt,
   isNumber,
+  findPatternsByRegex,
+  findInterval,
 } from '../src/utils';
 const assert = chai.assert;
 describe('utils', () => {
@@ -74,6 +76,30 @@ describe('utils', () => {
       assert.deepEqual(res, expected);
     });
   });
+  describe('findPatternsByRegex', () => {
+    it('should find index by single regex', () => {
+      const regexp = /bar/g;
+      const str = 'foobarfoobar';
+      const res = findPatternsByRegex(str, regexp);
+      const expected = [
+        [3, 5],
+        [9, 11],
+      ];
+      assert.deepEqual(res, expected);
+    });
+    it('should find index by multiple regexs', () => {
+      const regexp = [new RegExp('bar', 'g'), new RegExp('foo', 'g')];
+      const str = 'foobarfoobar';
+      const res = findPatternsByRegex(str, regexp);
+      const expected = [
+        [3, 5],
+        [9, 11],
+        [0, 2],
+        [6, 8],
+      ];
+      assert.deepEqual(res, expected);
+    });
+  });
   describe('dReplaceAt()', () => {
     it('should replace single string in certain index', () => {
       const sample = `奥斯陆是一个港口`;
@@ -100,6 +126,32 @@ describe('utils', () => {
     });
     it('should return false when it is not a number', () => {
       assert.notOk(isNumber('x'));
+    });
+  });
+  describe('findInterval()', () => {
+    it('should work with positive test', () => {
+      const textRange = [
+        [3, 5],
+        [7, 9],
+      ];
+      const length = 12;
+      const res = findInterval(length, textRange);
+      const expect = [
+        [0, 2],
+        [6, 6],
+        [10, 11],
+      ];
+      assert.deepEqual(res, expect);
+    });
+    it('it should work when given ranges at start and end', () => {
+      const textRange = [
+        [0, 3],
+        [7, 9],
+      ];
+      const length = 10;
+      const res = findInterval(length, textRange);
+      const expect = [[4, 6]];
+      assert.deepEqual(res, expect);
     });
   });
 });

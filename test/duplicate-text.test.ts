@@ -23,13 +23,6 @@ describe('duplicate-text', () => {
         },
       ];
       assert.deepEqual(res1, expected1);
-
-      //   const res = searchDuplicates(sample, 2);
-      //   const res2 = longerHash(sample, res);
-      //   const filtered = filterDominatedWords(res, res2);
-      //   console.log(res);
-      //   console.log(res2);
-      //   console.log(filtered);
     });
   });
 });

@@ -68,38 +68,41 @@ function quoteSymbol(text: string) {
 function _normalSymbol(text: string, symbol: NormalSymbol) {
   let str = text;
   const NORMAL_SYMBOL = [symbol['CN'], symbol['EN']];
-  let positions = findPatterns(str, NORMAL_SYMBOL);
+  let origPatterns = findPatterns(str, NORMAL_SYMBOL);
+  const positions = origPatterns.map((pattern) => pattern[0]);
+
   for (let i = 0; i < positions.length; i++) {
-    positions = findPatterns(str, NORMAL_SYMBOL);
+    // positions = findPatterns(str, NORMAL_SYMBOL);
     // if it is the first or last sentence, then default the prevous or next sentence is english
-    const prevSentence =
+    let prevSentence: string;
+
+    let nextSentence: string;
+
+    prevSentence =
       i > 0
-        ? str.substring(positions[i - 1][1], positions[i][0])
-        : str.substring(0, positions[i][0]);
-    const nextSentence =
+        ? str.substring(positions[i - 1] + 1, positions[i])
+        : str.substring(0, positions[i]);
+    nextSentence =
       i < positions.length - 1
-        ? str.substring(positions[i][1], positions[i + 1][0])
-        : str.substring(positions[i][1], str.length - 1);
+        ? str.substring(positions[i] + 1, positions[i + 1])
+        : str.substring(positions[i] + 1);
 
-    const pos = positions[i][0];
-
-    if (isEnglish(prevSentence) && isEnglish(nextSentence)) {
+    const pos = positions[i];
+    // in case one of them is undefined, use || to make it stable
+    if (
+      isEnglish(prevSentence || nextSentence) &&
+      isEnglish(nextSentence || prevSentence)
+    ) {
       str = dReplaceAt(str, pos, symbol['EN']);
       // add space between english character and punctuation
-      if (
-        positions[i][1] < str.length - 1 &&
-        str[positions[i][1] + 1] !== ' '
-      ) {
-        dInsertAt(str, positions[i][1] + 1, ' ');
+      if (positions[i] < str.length - 1 && str[positions[i] + 1] !== ' ') {
+        dInsertAt(str, positions[i] + 1, ' ');
       }
     } else {
       str = dReplaceAt(str, pos, symbol['CN']);
       // delete space between chinese character and punctuation
-      if (
-        positions[i][1] < str.length - 1 &&
-        str[positions[i][1] + 1] === ' '
-      ) {
-        str = dReplaceAt(str, positions[i][1] + 1, '');
+      if (positions[i] < str.length - 1 && str[positions[i] + 1] === ' ') {
+        str = dReplaceAt(str, positions[i] + 1, '');
       }
     }
     // if a colon symbol's prev and after are both number, then transfer to english

@@ -1,4 +1,10 @@
-import { dReplace, dReplaceAt, findPatterns, dInsertAt } from './utils';
+import {
+  dReplace,
+  dReplaceAt,
+  findPatterns,
+  dInsertAt,
+  findPatternsByRegex,
+} from './utils';
 const pangu = require('pangu');
 /**
  *
@@ -58,6 +64,7 @@ function htmlSpace(text: string) {
     '<strong>',
     '</strong>',
   ]);
+
   // count works for insert, see line 66, if I insert a space, the pos I calculated
   // before will outdated, I use count to record how many spaces I have added
   let count = 0;

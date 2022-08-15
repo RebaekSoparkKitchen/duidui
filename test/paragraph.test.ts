@@ -1,6 +1,7 @@
 import * as chai from 'chai';
 const assert = chai.assert;
-import { norm, paragraphText, isHtml } from '../src/paragraph';
+import { norm, paragraphText } from '../src/paragraph';
+import { isHtml } from '../src/utils';
 
 describe('paragraph', () => {
   describe('norm()', () => {

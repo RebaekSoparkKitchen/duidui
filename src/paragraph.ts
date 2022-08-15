@@ -1,4 +1,4 @@
-import { fchown } from 'fs';
+import { isHtml } from './utils';
 
 /**
  * the main implementation of paragraph split, only work on a single lineBreak
@@ -52,14 +52,4 @@ function paragraphText(text: string, margin: 'single' | 'double') {
   }
 }
 
-/**
- * to determine if a given text is html or plain text
- * @param text the target text
- * @returns html text -> true, plain text -> false
- */
-function isHtml(text: string): boolean {
-  const res = text.search(/<[^>]+>/);
-  return res !== -1;
-}
-
-export { norm, paragraphText, isHtml };
+export { norm, paragraphText };
