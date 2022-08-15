@@ -1,47 +1,80 @@
-import { findInterval, findPatternsByRegex } from './utils';
+import { findInterval, findPatternsByRegex, isHtml } from './utils';
 
+/**
+ * find html tags index ranges
+ * @param text input text
+ * @returns html tags index ranges, say [[0,2], [3,9]]
+ */
 function findTagsIndex(text: string) {
   return findPatternsByRegex(text, /<\/?[a-z][^>]*>/gi);
 }
 
+/**
+ * wrap two index ranges into a single object
+ * @param text input text
+ * @returns both html tags index ranges and text index ranges
+ */
 function getTextIndex(text: string) {
   const tagRange = findTagsIndex(text);
   const textRange = findInterval(text.length, tagRange);
-
   return { tagRange, textRange };
 }
 
 type TextInfo = { data: string; type: 'text' | 'tag' };
+
+/**
+ * core function to parse text into an object
+ * @param text input text
+ * @returns an array of text info objects
+ */
 function getTextInfo(text: string): TextInfo[] {
   const { tagRange, textRange } = getTextIndex(text);
   let pointer1 = 0;
   let pointer2 = 0;
   const info: TextInfo[] = [];
 
+  function addTagInfo() {
+    info.push({
+      data: text.substring(tagRange[pointer1][0], tagRange[pointer1][1] + 1),
+      type: 'tag',
+    } as TextInfo);
+    pointer1 += 1;
+  }
+
+  function addTextInfo() {
+    info.push({
+      data: text.substring(textRange[pointer2][0], textRange[pointer2][1] + 1),
+      type: 'text',
+    } as TextInfo);
+    pointer2 += 1;
+  }
   do {
-    if (
-      pointer2 === textRange.length ||
-      tagRange[pointer1][0] < textRange[pointer2][0]
-    ) {
-      info.push({
-        data: text.substring(tagRange[pointer1][0], tagRange[pointer1][1] + 1),
-        type: 'tag',
-      } as TextInfo);
-      pointer1 += 1;
+    if (pointer2 === textRange.length) {
+      addTagInfo();
+      continue;
+    }
+
+    if (pointer1 === tagRange.length) {
+      addTextInfo();
+      continue;
+    }
+
+    if (tagRange[pointer1][0] < textRange[pointer2][0]) {
+      addTagInfo();
     } else {
-      info.push({
-        data: text.substring(
-          textRange[pointer2][0],
-          textRange[pointer2][1] + 1
-        ),
-        type: 'text',
-      } as TextInfo);
-      pointer2 += 1;
+      addTextInfo();
     }
   } while (pointer1 != tagRange.length || pointer2 != textRange.length);
 
   return info;
 }
+
+/**
+ * first parse text to a TextInfo[], then process the text, finally merge them to string again
+ * @param text input string
+ * @param cb string process function
+ * @returns the processed string
+ */
 function processHtmlText(text: string, cb: (x: string) => string) {
   const infoArr: TextInfo[] = getTextInfo(text);
   const textIndexArr: number[] = [];
@@ -73,4 +106,9 @@ function processHtmlText(text: string, cb: (x: string) => string) {
   );
   return result;
 }
-export { getTextIndex, getTextInfo, processHtmlText };
+
+function htmlWrapper(text: string, cb: (x: string) => string) {
+  if (!isHtml(text)) return cb(text);
+  return processHtmlText(text, cb);
+}
+export { getTextIndex, getTextInfo, processHtmlText, htmlWrapper };

@@ -1,3 +1,4 @@
+import { htmlWrapper } from './html-processor';
 import {
   dReplace,
   dReplaceAt,
@@ -24,7 +25,7 @@ function removeSpace(text: string, count: number = 1) {
  * @param text target string
  * @returns
  */
-function removeRebundantSpace(text: string) {
+function plainRemoveRebundantSpace(text: string) {
   let str = text;
   // means space appears at least twice in a time
   const re = new RegExp(`\\s{2,}`, 'g');
@@ -32,12 +33,16 @@ function removeRebundantSpace(text: string) {
   return str;
 }
 
+function removeRebundantSpace(text: string) {
+  return htmlWrapper(text, plainRemoveRebundantSpace);
+}
+
 /**
  * add space in the right place
  * @param text target string
  * @returns
  */
-function addSpace(text: string) {
+function plainAddSpace(text: string) {
   let str = text;
   str = pangu.spacing(str);
 
@@ -52,6 +57,10 @@ function addSpace(text: string) {
   str = dReplace(str, /> /g, '>');
   str = htmlSpace(str);
   return str;
+}
+
+function addSpace(text: string) {
+  return htmlWrapper(text, plainAddSpace);
 }
 
 function htmlSpace(text: string) {

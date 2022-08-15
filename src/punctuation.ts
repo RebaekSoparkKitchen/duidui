@@ -1,4 +1,5 @@
-import { dInsertAt, findPatterns } from './utils';
+import { htmlWrapper, processHtmlText } from './html-processor';
+import { dInsertAt, findPatterns, isHtml } from './utils';
 const isEnglish = require('is-english');
 import { previousChar, dReplaceAt, isNumber } from './utils';
 const punctuationSymbol: PunctuationSymbol = require('./data/punctationSymbol.json');
@@ -25,7 +26,7 @@ interface PunctuationSymbol {
  * @param text : target text
  * @returns the processed text
  */
-const _quoteSymbol = (text: string, symbol: QuoteSymbol): string => {
+const _plainQuoteSymbol = (text: string, symbol: QuoteSymbol): string => {
   //  I need to have my own replaceall, when replace, record the index
   let str = text;
   const QUOTATION_SYMBOL = [...symbol['CN'], symbol['EN']];
@@ -51,12 +52,16 @@ const _quoteSymbol = (text: string, symbol: QuoteSymbol): string => {
   return str;
 };
 
-function quoteSymbol(text: string) {
+function plainQuoteSymbol(text: string) {
   let str = text;
   Object.values(punctuationSymbol.QUOTE).forEach((symbol) => {
-    str = _quoteSymbol(str, symbol);
+    str = _plainQuoteSymbol(str, symbol);
   });
   return str;
+}
+
+function quoteSymbol(text: string) {
+  return htmlWrapper(text, plainQuoteSymbol);
 }
 
 /**
@@ -65,7 +70,7 @@ function quoteSymbol(text: string) {
  * @param symbol:  the symbol I want to replace
  * @returns
  */
-function _normalSymbol(text: string, symbol: NormalSymbol) {
+function _plainNormalSymbol(text: string, symbol: NormalSymbol) {
   let str = text;
   const NORMAL_SYMBOL = [symbol['CN'], symbol['EN']];
   let origPatterns = findPatterns(str, NORMAL_SYMBOL);
@@ -118,12 +123,16 @@ function _normalSymbol(text: string, symbol: NormalSymbol) {
   return str;
 }
 
-function normalSymbol(text: string) {
+function plainNormalSymbol(text: string) {
   let str = text;
   Object.values(punctuationSymbol.NORMAL).forEach((symbol) => {
-    str = _normalSymbol(str, symbol);
+    str = _plainNormalSymbol(str, symbol);
   });
   return str;
 }
 
-export { quoteSymbol, normalSymbol };
+function normalSymbol(text: string) {
+  return htmlWrapper(text, plainNormalSymbol);
+}
+
+export { quoteSymbol, normalSymbol, plainNormalSymbol, plainQuoteSymbol };

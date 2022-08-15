@@ -1,3 +1,4 @@
+import { htmlWrapper } from './html-processor';
 import { isHtml } from './utils';
 
 /**
