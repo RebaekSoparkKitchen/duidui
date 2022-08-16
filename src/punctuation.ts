@@ -93,6 +93,14 @@ function _plainNormalSymbol(text: string, symbol: NormalSymbol) {
         : str.substring(positions[i] + 1);
 
     const pos = positions[i];
+    // if number at either side of the string, don't process it
+    if (
+      isNumber(prevSentence[prevSentence.length - 1]) &&
+      isNumber(nextSentence[0])
+    ) {
+      str = dReplaceAt(str, pos, symbol['EN']);
+      continue;
+    }
     // in case one of them is undefined, use || to make it stable
     if (
       isEnglish(prevSentence || nextSentence) &&

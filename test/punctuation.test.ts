@@ -100,5 +100,11 @@ describe('punctuation', () => {
       const expected = '，中';
       assert.strictEqual(res, expected);
     });
+    it('should work with numbers', () => {
+      const sample = `楼，12.9A+B 会议室`;
+      const res = normalSymbol(sample);
+      const expected = sample;
+      assert.strictEqual(res, expected);
+    });
   });
 });
